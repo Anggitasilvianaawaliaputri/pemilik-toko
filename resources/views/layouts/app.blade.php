@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
-    <!-- SweetAlert CSS -->
+    <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <!-- Custom CSS -->
@@ -27,6 +27,7 @@
             padding: 0;
         }
 
+        /* Sidebar Styling */
         .sidebar {
             width: 250px;
             height: 100vh;
@@ -70,13 +71,11 @@
         }
 
         .sidebar .menu-item a.active {
-            color: #ffffff;
-            background-color: #9fb873;
-            padding: 10px;
-            border-radius: 25px;
+            color: #9fb873;
             font-weight: bold;
         }
 
+        /* Main Content Styling */
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -97,6 +96,48 @@
         header h1 {
             font-size: 1.5rem;
             margin: 0;
+        }
+
+        header .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.85rem;
+            color: #666;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+        }
+
+        .sidebar .menu-item a.active {
+            color: #ffffff;
+            background-color: #9fb873; /* Warna latar tombol aktif */
+            padding: 10px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .menu-item a {
+            display: block;
+            padding: 10px;
+            color: #9fb873;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .menu-item a:hover {
+            color: #ffffff;
+        }
+
+        header .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
         }
 
         .profile-section {
@@ -133,20 +174,22 @@
 
         <!-- Profile Section -->
         <div class="profile-section">
-            <!-- Ganti 'profile.jpg' dengan nama file gambar Anda yang valid -->
-            <img src="c:\Users\acer\Downloads\Gambar WhatsApp 2024-12-18 pukul 21.10.01_39567c4a.jpg" alt="Profile" class="rounded-circle mb-2">
+            <a href="{{ route('profil') }}">
+                <img src="https://www.mediarale.com/wp-content/uploads/2022/11/Compress_20221106_185806_6073.jpg" 
+                     alt="Profile" 
+                     class="rounded-circle mb-2" 
+                     style="cursor: pointer;">
+            </a>
         </div>
 
         <!-- Sidebar Menu Items -->
         <ul class="menu-item">
-            <li><a href="items" class="{{ Request::is('items*') ? 'active' : '' }}"><i class="bi bi-box"></i> Kelola Barang</a></li>
+            <li><a href="items" class="{{ Request::is('items*') ? 'active' : '' }}"><i class="bi bi-box"></i> Cek Barang</a></li>
             <li><a href="agents" class="{{ Request::is('agents*') ? 'active' : '' }}"><i class="bi bi-people"></i> Agen</a></li>
             <li><a href="categories" class="{{ Request::is('categories*') ? 'active' : '' }}"><i class="bi bi-tag"></i> Kategori</a></li>
-            <li><a href="Transaction" class="{{ Request::is('Transaction*') ? 'active' : '' }}"><i class="bi bi-basket"></i> Transaksi</a></li>
-            <li><a href="sale" class="{{ Request::is('sale*') ? 'active' : '' }}"><i class="bi bi-cart-check"></i> Penjualan</a></li>
-            <li><a href="report" class="{{ Request::is('report*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> Laporan</a></li>
+            <li><a href="transactions" class="{{ Request::is('transactions*') ? 'active' : '' }}"><i class="bi bi-basket"></i> Transaksi</a></li>
+            <li><a href="e" class="{{ Request::is('reports*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> Laporan</a></li>
             <li><a href="accounts" class="{{ Request::is('accounts*') ? 'active' : '' }}"><i class="bi bi-person-plus"></i> Tambah Akun</a></li>
-            <li><a href="products" class="{{ Request::is('products*') ? 'active' : '' }}"><i class="bi bi-basket3"></i> Produk</a></li>
         </ul>
 
         <!-- Logout Button -->
@@ -164,6 +207,39 @@
         </main>
     </div>
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <!-- Show Pop-up based on session flash messages -->
+    <script>
+        // Check if there's a flash message for success, error, or warning
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @elseif(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan!',
+                text: '{{ session('warning') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
+    </script>
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
